@@ -1,0 +1,4 @@
+-Belajar dan mencoba Spring JDBC dan H2 Database
+-Belajar JPA dan Entity Manager
+-Explore Spring Data JPA
+-Belajar Hibernate pada Java spring

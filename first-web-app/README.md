@@ -1,0 +1,15 @@
+-Belajar DispatcherServlet, Model dan Front Controller
+-Belajar membuat login
+-Membuat validasi userId dan password
+-Memahami perbedaan session, model, request
+-Belajar dan mengimplementasikan JSTL
+-Belajar menambahkan bootstrap dan css ke aplikasi
+-Mencoba CRUD Web Todo
+-Belajar dan menerapkan Spring Security
+-Belajar dan mencoba Spring JDBC dan H2 Database
+-Belajar JPA dan Entity Manager
+-Explore Spring Data JPA
+-Belajar Hibernate pada Java spring
+-Mengimplementasi kan Spring Data JPA, H2 Database ke Web Todo
+-Merapihkan Code Web Todo 
+-Mencoba menghubungkan web todo dengan PostgresSQL
