@@ -10,7 +10,7 @@ import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
 @Data
-@Entity
+// @Entity
 public class Question {
   @Id
   @GeneratedValue

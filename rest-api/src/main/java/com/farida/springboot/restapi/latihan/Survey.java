@@ -8,7 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
 
-@Entity
+// @Entity
 @Data
 public class Survey {
   @Id
