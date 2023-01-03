@@ -1,4 +1,4 @@
-package com.server.jwt.jwtsecurity.controllers;
+package com.rest.question.survey.restapisurveyquestion.controllers;
 
 import java.util.HashSet;
 import java.util.List;
@@ -20,17 +20,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.server.jwt.jwtsecurity.models.ERole;
-import com.server.jwt.jwtsecurity.models.Role;
-import com.server.jwt.jwtsecurity.models.User;
-import com.server.jwt.jwtsecurity.payload.request.LoginRequest;
-import com.server.jwt.jwtsecurity.payload.request.SignUpRequest;
-import com.server.jwt.jwtsecurity.payload.response.JwtResponse;
-import com.server.jwt.jwtsecurity.payload.response.MessageResponse;
-import com.server.jwt.jwtsecurity.repository.RoleRepository;
-import com.server.jwt.jwtsecurity.repository.UserRepository;
-import com.server.jwt.jwtsecurity.security.jwt.JwtUtils;
-import com.server.jwt.jwtsecurity.security.services.UserDetailslmpl;
+import com.rest.question.survey.restapisurveyquestion.models.ERole;
+import com.rest.question.survey.restapisurveyquestion.models.Role;
+import com.rest.question.survey.restapisurveyquestion.models.User;
+import com.rest.question.survey.restapisurveyquestion.payload.request.LoginRequest;
+import com.rest.question.survey.restapisurveyquestion.payload.request.SignUpRequest;
+import com.rest.question.survey.restapisurveyquestion.payload.response.JwtResponse;
+import com.rest.question.survey.restapisurveyquestion.payload.response.MessageResponse;
+import com.rest.question.survey.restapisurveyquestion.repository.RoleRepository;
+import com.rest.question.survey.restapisurveyquestion.repository.UserRepository;
+import com.rest.question.survey.restapisurveyquestion.security.jwt.JwtUtils;
+import com.rest.question.survey.restapisurveyquestion.security.services.UserDetailslmpl;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -110,11 +110,6 @@ public class AuthController {
 					Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
 							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 					roles.add(adminRole);
-					break;
-				case "super":
-					Role superRole = roleRepository.findByName(ERole.ROLE_SUPER_ADMIN)
-							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-					roles.add(superRole);
 					break;
 				default:
 					Role userRole = roleRepository.findByName(ERole.ROLE_USER)

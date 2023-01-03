@@ -1,4 +1,4 @@
-package com.server.jwt.jwtsecurity.controllers;
+package com.rest.question.survey.restapisurveyquestion.controllers;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,12 +19,6 @@ public class TestController {
   @PreAuthorize("hasRole('USER') or hasRole('SUPER_ADMIN') or hasRole('ADMIN')")
   public String userAccess() {
     return "User Content";
-  }
-
-  @GetMapping("/super")
-  @PreAuthorize("hasRole('SUPER_ADMIN')")
-  public String superAdminAccess() {
-    return "Super Admin Board";
   }
 
   @GetMapping("/admin")
