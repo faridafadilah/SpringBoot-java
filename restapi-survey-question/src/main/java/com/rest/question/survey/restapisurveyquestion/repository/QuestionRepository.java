@@ -18,4 +18,6 @@ public interface QuestionRepository extends JpaRepository<Question, String> {
     nativeQuery = true
   )
   List<QuestionDto> getAllQuestion();
+
+  // Page<Question> findByCorrectAnswerContaining(String correctAnswer, Pageable pageable);
 }
