@@ -18,14 +18,18 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 // import org.springframework.web.client.HttpClientErrorException.Unauthorized;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import com.rest.question.survey.restapisurveyquestion.Interceptor.UserInterceptor;
 import com.rest.question.survey.restapisurveyquestion.security.jwt.AuthEntryPointJwt;
 import com.rest.question.survey.restapisurveyquestion.security.jwt.AuthTokenFilter;
 import com.rest.question.survey.restapisurveyquestion.security.services.UserDetailsServiceImpl;
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class WebSecurityConfig {
+public class WebSecurityConfig implements WebMvcConfigurer {
   @Autowired
   UserDetailsServiceImpl userDetailsService;
 
@@ -70,4 +74,12 @@ public class WebSecurityConfig {
         http.addFilterBefore(authenticationJwTokenFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
       }
+
+  @Override
+  public void addInterceptors(InterceptorRegistry registry) {
+    WebMvcConfigurer.super.addInterceptors(registry);
+    registry.addInterceptor(new UserInterceptor()).addPathPatterns(
+        "/api/surveys/**", 
+        "/api/questions/**");
+  }
 }

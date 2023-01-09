@@ -1,5 +1,7 @@
 package com.rest.question.survey.restapisurveyquestion.dto.request;
 
+import javax.validation.constraints.NotNull;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +14,10 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 public class SurveyRequest {
+  @NotNull
   private String id;
+  @NotNull
   private String title;
+  @NotNull
   private String description;
 }
