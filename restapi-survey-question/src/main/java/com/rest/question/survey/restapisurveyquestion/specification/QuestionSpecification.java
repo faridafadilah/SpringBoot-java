@@ -6,14 +6,13 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
 import com.rest.question.survey.restapisurveyquestion.base.BaseSpecification;
-import com.rest.question.survey.restapisurveyquestion.models.Survey;
+import com.rest.question.survey.restapisurveyquestion.models.Question;
 
 @Component
-public class SurveySpecification extends BaseSpecification<Survey> {
+public class QuestionSpecification extends BaseSpecification<Question> {
   @Override
-	public Specification<Survey> containsTextInOmni(String text) {
+	public Specification<Question> containsTextInOmni(String text) {
 		return containsTextInAttributes(text,
 				Arrays.asList("description", "transactionNumber", "transactionType", "platform"));
 	}
 }
- 

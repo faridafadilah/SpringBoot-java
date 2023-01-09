@@ -3,10 +3,7 @@ package com.rest.question.survey.restapisurveyquestion.services;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-// import java.util.List;
 import java.util.Optional;
-// import java.util.stream.Collectors;
-import java.util.stream.Collectors;
 
 import javax.validation.ValidationException;
 
@@ -14,9 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-// import org.springframework.data.domain.Page;
-// import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
 import org.modelmapper.ModelMapper;
 
@@ -120,13 +114,10 @@ public class SurveyService implements BasePageInterface<Survey, SurveySpecificat
     }
     return true;
   }
-
-  private SurveyResponse mapToSurveyResponse(Survey survey) {
-    return objectMapper.map(survey, SurveyResponse.class);
-  }
-		
+	
+  // Get All + Pagination
 	public Page<DtoResListSurvey> getAllSurvey(String search, Integer page, Integer limit, List<String> sortBy,
-    Boolean desc, String title) {
+    Boolean desc) {
     sortBy = (sortBy != null) ? sortBy : Arrays.asList("id");
     desc = (desc != null) ? desc : true;
     String search2 = search;
@@ -141,4 +132,23 @@ public class SurveyService implements BasePageInterface<Survey, SurveySpecificat
     return response;
   }
 
+  // Get By Id
+  public boolean getSurveyById(ResponAPI<DtoResListSurvey> responAPI, String id) {
+    Optional<Survey> optionalSurvey = surveyRepository.findById(id);
+    if(!optionalSurvey.isPresent()) {
+      responAPI.setErrorMessage("Data tidak ditemukan!");
+      return false;
+    }
+    try {
+      DtoResListSurvey response = DtoResListSurvey.getInstance(optionalSurvey.get());
+      responAPI.setData(response);
+    } catch (Exception e) {
+      responAPI.setErrorMessage(e.getMessage());
+    }
+    return true;
+  }
+
+  private SurveyResponse mapToSurveyResponse(Survey survey) {
+    return objectMapper.map(survey, SurveyResponse.class);
+  }
 }

@@ -32,46 +32,38 @@ public class SurveyController {
   @Autowired
   private SurveyService surveyService;
 
-    //Get All Surveys
-    @GetMapping("/surveys")
-    public ResponseEntity<ResponAPI<BaseResponsePage>> getAllSurvey(
+  //Get All Surveys
+  @GetMapping("/surveys")
+  public ResponseEntity<ResponAPI<BaseResponsePage>> getAllSurvey(
       @RequestParam(value = "search", required = false) String search,
       @RequestParam(value = "page", required = false) Integer page,
       @RequestParam(value = "limit", required = false) Integer limit,
-      @RequestParam(value = "sortBy", required = false) List<String>  sortBy,
-      @RequestParam(value = "descending", required = false) Boolean desc,
-      @RequestParam(value = "title", required = false) String title
-    ){
-      Page<DtoResListSurvey> surveyNotPending = surveyService.getAllSurvey(search, page, limit, sortBy, desc, title);
-      ResponAPI<BaseResponsePage> responAPI = new ResponAPI<>();
-      BaseResponsePage<List<DtoResListSurvey>> basePage = new BaseResponsePage<>();
-        basePage.setContent(surveyNotPending.toList());
-        basePage.setCurrentPage(surveyNotPending.getPageable().getPageNumber());
-        basePage.setTotalPage(surveyNotPending.getPageable().getPageSize());
-        basePage.setTotalElement(surveyNotPending.getTotalElements());
-        responAPI.setErrorMessage(MessageAPI.SUCCESS);
-        responAPI.setErrorCode(ErrorCode.SUCCESS);
-        responAPI.setData(basePage);
-        return ResponseEntity.status(HttpStatus.OK).body(responAPI);
-    }
+      @RequestParam(value = "sortBy", required = false) List<String>sortBy,
+      @RequestParam(value = "descending", required = false) Boolean desc) {
+    Page<DtoResListSurvey> surveyNotPending = surveyService.getAllSurvey(search, page, limit, sortBy, desc);
+    ResponAPI<BaseResponsePage> responAPI = new ResponAPI<>();
+    BaseResponsePage<List<DtoResListSurvey>> basePage = new BaseResponsePage<>();
+    basePage.setContent(surveyNotPending.toList());
+    basePage.setCurrentPage(surveyNotPending.getPageable().getPageNumber());
+    basePage.setTotalPage(surveyNotPending.getPageable().getPageSize());
+    basePage.setTotalElement(surveyNotPending.getTotalElements());
+    responAPI.setErrorMessage(MessageAPI.SUCCESS);
+    responAPI.setErrorCode(ErrorCode.SUCCESS);
+    responAPI.setData(basePage);
+    return ResponseEntity.status(HttpStatus.OK).body(responAPI);
+  }
 
-  //GetAll Surveys
-  // @GetMapping("/surveys")
-  // public ResponseEntity<ResponAPI<Page<SurveyResponse>>> getAllSurvey(
-  //     @RequestParam(value = "search", required = false) String search,
-  //     @RequestParam(value = "page", required = false) Integer page,
-  //     @RequestParam(value = "limit", required = false) Integer limit,
-  //     @RequestParam(value = "sortBy", required = false) List<String>  sortBy,
-  //     @RequestParam(value = "descending", required = false) Boolean desc,
-  //     @RequestParam(value = "title", required = false) String title
-  // ){
-  //   Page<SurveyResponse> responsePage = surveyService.getAllSurvey(search, page, limit, sortBy, desc, title);
-  //   ResponAPI<Page<SurveyResponse>> responAPI = new ResponAPI<>();
-  //   responAPI.setData(responsePage);
-  //   responAPI.setErrorCode(ErrorCode.SUCCESS);
-  //   responAPI.setErrorMessage(MessageAPI.SUCCESS);
-  //   return ResponseEntity.status(HttpStatus.OK).body(responAPI);
-  // }
+  // Get Surveys by Id
+  @GetMapping("/surveys/{id}")
+  public ResponseEntity<ResponAPI<DtoResListSurvey>> getDetailSurvey(@PathVariable("id") String id) {
+    ResponAPI<DtoResListSurvey> responAPI = new ResponAPI<>();
+    if(!surveyService.getSurveyById(responAPI, id)) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responAPI);
+    }
+    responAPI.setErrorCode(ErrorCode.SUCCESS);
+    responAPI.setErrorMessage(MessageAPI.SUCCESS);
+    return ResponseEntity.status(HttpStatus.OK).body(responAPI);
+  }
 
   // Add Survey
   @PostMapping("/add-survey")

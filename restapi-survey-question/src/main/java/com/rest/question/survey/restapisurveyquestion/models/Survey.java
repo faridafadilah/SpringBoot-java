@@ -22,6 +22,6 @@ public class Survey {
   private String id;
   private String title;
   private String description;
-  @OneToMany
+  @OneToMany(mappedBy = "survey")
   private List<Question> questions;
 }

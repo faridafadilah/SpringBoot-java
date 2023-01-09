@@ -18,5 +18,3 @@ public class Question {
   @JoinColumn(name = "survey_id")
   private Survey survey;
 }
-
-

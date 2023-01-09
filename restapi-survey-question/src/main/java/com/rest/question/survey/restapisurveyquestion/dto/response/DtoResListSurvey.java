@@ -12,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DtoResListSurvey {
-  public String id;
+  public String id; 
   public String title;
   public String description;
   public List<QuestionResponse> questions;
@@ -33,14 +33,15 @@ public class DtoResListSurvey {
               questionResponse.setId(question.getId());
               questionResponse.setCorrectAnswer(question.getCorrectAnswer());
               questionResponse.setDescription(question.getDescription());
+              questionResponse.setSurveyId(survey.getId());
               questions.add(questionResponse);
-              dto.setQuestions(questions);
-              return dto;
             }
           }
         }
+        dto.setQuestions(questions);
+        return dto;
       } catch (Exception e) {
-        return null;
+        e.printStackTrace();
       }
     }
     return null;

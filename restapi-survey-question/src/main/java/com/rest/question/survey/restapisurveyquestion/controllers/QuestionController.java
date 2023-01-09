@@ -27,7 +27,7 @@ import com.rest.question.survey.restapisurveyquestion.constant.MessageAPI;
 import com.rest.question.survey.restapisurveyquestion.dto.QuestionDto;
 import com.rest.question.survey.restapisurveyquestion.dto.request.QuestionRequest;
 import com.rest.question.survey.restapisurveyquestion.dto.response.QuestionResponse;
-import com.rest.question.survey.restapisurveyquestion.models.Question;
+import com.rest.question.survey.restapisurveyquestion.dto.response.QuestionResponse;
 import com.rest.question.survey.restapisurveyquestion.repository.QuestionRepository;
 import com.rest.question.survey.restapisurveyquestion.services.QuestionService;
 
@@ -39,6 +39,23 @@ public class QuestionController {
 
   @Autowired
   private QuestionService questionService;
+
+  // Get All Question
+  @GetMapping("/questions")
+  @PreAuthorize("hasRole('USER')")
+  public ResponseEntity<ResponAPI<Page<QuestionResponse>>> getAllQuestion(
+      @RequestParam(value = "search", required = false) String search,
+      @RequestParam(value = "page", required = false) Integer page,
+      @RequestParam(value = "limit", required = false) Integer limit,
+      @RequestParam(value = "sortBy", required = false) List<String> sortBy,
+      @RequestParam(value = "descending", required = false) Boolean desc) {  
+    Page<QuestionResponse> responsePage = questionService.getAllQUestion(search, page, limit, sortBy, desc);
+    ResponAPI<Page<QuestionResponse>> responAPI = new ResponAPI<>();
+    responAPI.setErrorMessage(MessageAPI.SUCCESS);
+    responAPI.setErrorCode(ErrorCode.SUCCESS); 
+    responAPI.setData(responsePage);
+    return ResponseEntity.status(HttpStatus.OK).body(responAPI);
+  }
 
   //Get All Data join Question and Survey
   @GetMapping("/questions/survey/question")
@@ -52,36 +69,19 @@ public class QuestionController {
     return ResponseEntity.ok(responseAPI);
   }
 
-  //Get All
-  // @GetMapping("/questions")
-  // public ResponseEntity<Map<String, Object>> getAllQuestion(
-  //   @RequestParam(required = false) String correctAnswer,
-  //   @RequestParam(defaultValue = "0") int page,
-  //   @RequestParam(defaultValue = "3") int size
-  // ) {
-  //   try {
-  //     List<Question> questions = new ArrayList<Question>();
-  //     Pageable paging = PageRequest.of(page, size);
+  //Get All Data Question By Survey Id
+  @GetMapping("/questions/{id}")
+  @PreAuthorize("hasRole('USER')")
+  public ResponseEntity<ResponAPI<List<QuestionResponse>>> getQuestionBySurveyId(@PathVariable("id") String id) {
+    ResponAPI<List<QuestionResponse>> responAPI = new ResponAPI<>();
 
-  //     Page<Question> pageQuestion;
-  //     if(correctAnswer == null) {
-  //       pageQuestion = qRepository.findAll(paging);
-  //     } else {
-  //       pageQuestion = qRepository.findByCorrectAnswerContaining(correctAnswer, paging);
-  //     }
-  //     questions = pageQuestion.getContent();
-
-  //     Map<String, Object> response = new HashMap<>();
-  //     response.put("questions", questions);
-  //     response.put("currentPage", pageQuestion.getNumber());
-  //     response.put("totalItems", pageQuestion.getTotalElements());
-  //     response.put("totalPages", pageQuestion.getTotalPages());
-
-  //     return new ResponseEntity<>(response, HttpStatus.OK);
-  //   } catch (Exception e) {
-  //     return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-  //   }
-  // }
+    if(!questionService.getQuestionBySurveyId(responAPI, id)) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responAPI);
+    }
+    responAPI.setErrorCode(ErrorCode.SUCCESS);
+    responAPI.setErrorMessage(MessageAPI.SUCCESS);
+    return ResponseEntity.status(HttpStatus.OK).body(responAPI);
+  }
 
   //Add Question
   @PostMapping("/add-question")

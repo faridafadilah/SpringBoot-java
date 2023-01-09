@@ -7,5 +7,5 @@ import com.rest.question.survey.restapisurveyquestion.models.Survey;
 
 @Repository
 public interface SurveyRepository<T> extends JpaRepository<Survey, String>, JpaSpecificationExecutor<T> {
-  // Page<Survey> findByTitleContaining(String title, Specification<Survey> specification, Pageable pageable);
+  // Page<Survey> findByTitleContaining(Strng title, Specification<Survey> specification, Pageable pageable);
 }
