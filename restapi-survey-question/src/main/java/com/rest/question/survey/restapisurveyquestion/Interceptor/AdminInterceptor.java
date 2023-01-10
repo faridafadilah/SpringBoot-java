@@ -7,12 +7,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import com.rest.question.survey.restapisurveyquestion.constant.ErrorCode;
 import com.rest.question.survey.restapisurveyquestion.dto.response.ListUserResponse;
-import com.rest.question.survey.restapisurveyquestion.exception.UnauthorizedException;
 import com.rest.question.survey.restapisurveyquestion.models.User;
 import com.rest.question.survey.restapisurveyquestion.repository.UserRepository;
 import com.rest.question.survey.restapisurveyquestion.security.jwt.JwtUtils;
@@ -34,7 +34,7 @@ public class AdminInterceptor implements HandlerInterceptor {
     String headerAuth = request.getHeader("Authorization");
     if (headerAuth == null || !headerAuth.contains("Bearer ")) {
       System.out.println("UNAUTORIZATION");
-      throw (new UnauthorizedException(ErrorCode.UNAUTHORIZED));
+      throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
     }
 
     String token = headerAuth.substring(7);
@@ -45,18 +45,18 @@ public class AdminInterceptor implements HandlerInterceptor {
     Optional<User> userOptional = userRepository.findByUsername(username);
     if (!userOptional.isPresent()) {
       System.out.println("UNAUTORIZATION");
-      throw (new UnauthorizedException(ErrorCode.USER_NOT_FOUND));
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
     User user = userOptional.get();
     if(user.getRoles().isEmpty()) {
       System.out.println("UNAUTORIZATION");
-      throw (new UnauthorizedException(ErrorCode.UNAUTHORIZED));
+      throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
     }
 
     List<ListUserResponse> responses = userRepository.findByUserAndRoleAdmin(username);
     if(responses.isEmpty()) {
       System.out.println("UNAUTHORIZATION");
-      throw (new Exception(ErrorCode.UNAUTHORIZED));
+      throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
     }
     return HandlerInterceptor.super.preHandle(request, response, handler);
   }
