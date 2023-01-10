@@ -40,6 +40,10 @@ public class JwtUtils {
     return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
   }
 
+  public String usernameFromToken(String token, String signingKey) {
+    return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
+  }
+
   //Memvalidasi Jwt
   public boolean validateJwtToken(String authToken) {
     try {

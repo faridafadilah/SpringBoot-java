@@ -25,6 +25,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import com.rest.question.survey.restapisurveyquestion.Interceptor.UserInterceptor;
 import com.rest.question.survey.restapisurveyquestion.security.jwt.AuthEntryPointJwt;
 import com.rest.question.survey.restapisurveyquestion.security.jwt.AuthTokenFilter;
+import com.rest.question.survey.restapisurveyquestion.security.jwt.JwtUtils;
 import com.rest.question.survey.restapisurveyquestion.security.services.UserDetailsServiceImpl;
 
 @Configuration
@@ -35,6 +36,12 @@ public class WebSecurityConfig implements WebMvcConfigurer {
 
   @Autowired
   private AuthEntryPointJwt unauthorizedHandler;
+
+  @Autowired
+  private UserInterceptor userInterceptor;
+
+  // @Autowired
+  // private AdminInterceptor adminInterceptor;
 
   @Bean
   public AuthTokenFilter authenticationJwTokenFilter() {
@@ -78,7 +85,7 @@ public class WebSecurityConfig implements WebMvcConfigurer {
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
     WebMvcConfigurer.super.addInterceptors(registry);
-    registry.addInterceptor(new UserInterceptor()).addPathPatterns(
+    registry.addInterceptor(userInterceptor).addPathPatterns(
         "/api/surveys/**", 
         "/api/questions/**");
   }

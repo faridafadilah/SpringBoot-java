@@ -51,7 +51,7 @@ public class QuestionService implements BasePageInterface<Question, QuestionSpec
     } catch (ValidationException e) {
       responAPI.setErrorMessage(e.getMessage());
     } catch (Exception e) {
-      responAPI.setErrorCode(ErrorCode.FAILED);
+      responAPI.setErrorCode(ErrorCode.BODY_NOT_VALID);
       responAPI.setErrorMessage(e.getMessage());
       return false;
     }
@@ -62,7 +62,7 @@ public class QuestionService implements BasePageInterface<Question, QuestionSpec
   public boolean updateQuestion(QuestionRequest body, String id, ResponAPI<QuestionResponse> responAPI) {
     Optional<Question> qOptional = questionRepository.findById(id);
     if(!qOptional.isPresent()) {
-      responAPI.setErrorCode(ErrorCode.FAILED);
+      responAPI.setErrorCode(ErrorCode.BODY_NOT_VALID);
       responAPI.setErrorMessage(MessageAPI.BODY_NOT_VALID);
       return false;
     }
@@ -78,10 +78,10 @@ public class QuestionService implements BasePageInterface<Question, QuestionSpec
       responAPI.setErrorCode(ErrorCode.SUCCESS);
       responAPI.setErrorMessage(MessageAPI.SUCCESS);
     } catch (ValidationException e) {
-      responAPI.setErrorCode(ErrorCode.FAILED);
+      responAPI.setErrorCode(ErrorCode.BODY_NOT_VALID);
       responAPI.setErrorMessage(MessageAPI.BODY_NOT_VALID);
     } catch (Exception e) {
-      responAPI.setErrorCode(ErrorCode.FAILED);
+      responAPI.setErrorCode(ErrorCode.BODY_NOT_VALID);
       responAPI.setErrorMessage(e.getMessage());
       return false;
     }
@@ -92,7 +92,7 @@ public class QuestionService implements BasePageInterface<Question, QuestionSpec
   public boolean deleteQuestion(String id, ResponAPI<QuestionResponse> responAPI) {
     Optional<Question> qOptional = questionRepository.findById(id);
     if(!qOptional.isPresent()) {
-      responAPI.setErrorCode(ErrorCode.FAILED);
+      responAPI.setErrorCode(ErrorCode.BODY_NOT_VALID);
       responAPI.setErrorMessage(MessageAPI.BODY_NOT_VALID);
     }
 
@@ -103,7 +103,7 @@ public class QuestionService implements BasePageInterface<Question, QuestionSpec
       responAPI.setErrorCode(ErrorCode.SUCCESS);
       responAPI.setErrorMessage(MessageAPI.SUCCESS);
     } catch (Exception e) {
-      responAPI.setErrorCode(ErrorCode.FAILED);
+      responAPI.setErrorCode(ErrorCode.BODY_NOT_VALID);
       responAPI.setErrorMessage(e.getMessage());
       return false;
     }

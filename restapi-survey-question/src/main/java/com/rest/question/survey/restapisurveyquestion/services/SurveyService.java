@@ -48,7 +48,7 @@ public class SurveyService implements BasePageInterface<Survey, SurveySpecificat
       responAPI.setErrorMessage(e.getMessage());
     } catch (Exception e) {
       responAPI.setErrorMessage(e.getMessage());
-      responAPI.setErrorCode(ErrorCode.FAILED);
+      responAPI.setErrorCode(ErrorCode.BODY_NOT_VALID);
       return false;
     }
     return true;
@@ -59,7 +59,7 @@ public class SurveyService implements BasePageInterface<Survey, SurveySpecificat
     //find by Id
     Optional<Survey> sOptional = surveyRepository.findById(id);
     if(!sOptional.isPresent()) {
-      responAPI.setErrorCode(ErrorCode.FAILED);
+      responAPI.setErrorCode(ErrorCode.BODY_NOT_VALID);
       responAPI.setErrorMessage(MessageAPI.BODY_NOT_VALID);
       return false;
     }
@@ -79,9 +79,9 @@ public class SurveyService implements BasePageInterface<Survey, SurveySpecificat
       responAPI.setErrorMessage(MessageAPI.SUCCESS);
     } catch (ValidationException e) {
       responAPI.setErrorMessage(MessageAPI.BODY_NOT_VALID);
-      responAPI.setErrorCode(ErrorCode.FAILED);
+      responAPI.setErrorCode(ErrorCode.BODY_NOT_VALID);
     } catch (Exception e) {
-      responAPI.setErrorCode(ErrorCode.FAILED);
+      responAPI.setErrorCode(ErrorCode.BODY_NOT_VALID);
       responAPI.setErrorMessage(e.getMessage());
       return false;
     }
@@ -92,7 +92,7 @@ public class SurveyService implements BasePageInterface<Survey, SurveySpecificat
   public boolean deleteSurvey(String id, ResponAPI<SurveyResponse> responAPI) {
     Optional<Survey> optionalS = surveyRepository.findById(id);
     if(!optionalS.isPresent()) {
-      responAPI.setErrorCode(ErrorCode.FAILED);
+      responAPI.setErrorCode(ErrorCode.BODY_NOT_VALID);
       responAPI.setErrorMessage(MessageAPI.BODY_NOT_VALID);
       return false;
     }
@@ -101,7 +101,7 @@ public class SurveyService implements BasePageInterface<Survey, SurveySpecificat
       Survey survey = optionalS.get();
       if(!survey.getQuestions().isEmpty()) {
         responAPI.setData(null);
-        responAPI.setErrorCode(ErrorCode.FAILED);
+        responAPI.setErrorCode(ErrorCode.BODY_NOT_VALID);
         responAPI.setErrorMessage(MessageAPI.ERROR_RELATION + "Question");
       } else {
         surveyRepository.deleteById(id);
@@ -143,6 +143,7 @@ public class SurveyService implements BasePageInterface<Survey, SurveySpecificat
       DtoResListSurvey response = DtoResListSurvey.getInstance(optionalSurvey.get());
       responAPI.setData(response);
     } catch (Exception e) {
+      responAPI.setData(DtoResListSurvey.getInstance(null));
       responAPI.setErrorMessage(e.getMessage());
     }
     return true;
