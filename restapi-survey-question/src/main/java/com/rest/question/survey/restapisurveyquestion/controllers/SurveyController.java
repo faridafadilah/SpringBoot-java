@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.rest.question.survey.restapisurveyquestion.base.BaseController;
 import com.rest.question.survey.restapisurveyquestion.base.BaseResponsePage;
 import com.rest.question.survey.restapisurveyquestion.base.ResponAPI;
 import com.rest.question.survey.restapisurveyquestion.constant.ErrorCode;
@@ -28,7 +29,7 @@ import com.rest.question.survey.restapisurveyquestion.services.SurveyService;
 
 @RestController
 @RequestMapping("/api")
-public class SurveyController {
+public class SurveyController extends BaseController {
   @Autowired
   private SurveyService surveyService;
 

@@ -21,19 +21,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.rest.question.survey.restapisurveyquestion.base.BaseController;
 import com.rest.question.survey.restapisurveyquestion.base.ResponAPI;
 import com.rest.question.survey.restapisurveyquestion.constant.ErrorCode;
 import com.rest.question.survey.restapisurveyquestion.constant.MessageAPI;
 import com.rest.question.survey.restapisurveyquestion.dto.QuestionDto;
 import com.rest.question.survey.restapisurveyquestion.dto.request.QuestionRequest;
 import com.rest.question.survey.restapisurveyquestion.dto.response.QuestionResponse;
-import com.rest.question.survey.restapisurveyquestion.dto.response.QuestionResponse;
 import com.rest.question.survey.restapisurveyquestion.repository.QuestionRepository;
 import com.rest.question.survey.restapisurveyquestion.services.QuestionService;
 
 @RestController
 @RequestMapping("/api")
-public class QuestionController {
+public class QuestionController extends BaseController {
   @Autowired
   private QuestionRepository qRepository;
 
