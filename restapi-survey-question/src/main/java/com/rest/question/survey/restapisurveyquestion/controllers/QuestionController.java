@@ -42,7 +42,6 @@ public class QuestionController {
 
   // Get All Question
   @GetMapping("/questions")
-  @PreAuthorize("hasRole('USER')")
   public ResponseEntity<ResponAPI<Page<QuestionResponse>>> getAllQuestion(
       @RequestParam(value = "search", required = false) String search,
       @RequestParam(value = "page", required = false) Integer page,
@@ -59,7 +58,6 @@ public class QuestionController {
 
   //Get All Data join Question and Survey
   @GetMapping("/questions/survey/question")
-  @PreAuthorize("hasRole('USER')")
   public ResponseEntity<ResponAPI<List<QuestionDto>>> getAllQuestionSpecific() {
     ResponAPI<List<QuestionDto>> responseAPI = new ResponAPI<>();
     List<QuestionDto> question = qRepository.getAllQuestion();
@@ -71,7 +69,6 @@ public class QuestionController {
 
   //Get All Data Question By Survey Id
   @GetMapping("/questions/{id}")
-  @PreAuthorize("hasRole('USER')")
   public ResponseEntity<ResponAPI<List<QuestionResponse>>> getQuestionBySurveyId(@PathVariable("id") String id) {
     ResponAPI<List<QuestionResponse>> responAPI = new ResponAPI<>();
 
@@ -85,7 +82,6 @@ public class QuestionController {
 
   //Add Question
   @PostMapping("/add-question")
-  @PreAuthorize("hasRole('ADMIN')")
   public ResponseEntity<ResponAPI<QuestionResponse>> createQuestion(@RequestBody QuestionRequest body) {
     ResponAPI<QuestionResponse> responAPI = new ResponAPI<>();
     if(!questionService.createQuestion(body,responAPI)) {
@@ -96,7 +92,6 @@ public class QuestionController {
 
   //Edit Question
   @PostMapping("/edit-question/{id}")
-  @PreAuthorize("hasRole('ADMIN')")
   public ResponseEntity<ResponAPI<QuestionResponse>> updateQuestion(@PathVariable String id, @RequestBody QuestionRequest body) {
     ResponAPI<QuestionResponse> responAPI = new ResponAPI<>();
     if(!questionService.updateQuestion(body, id, responAPI)) {
@@ -107,7 +102,6 @@ public class QuestionController {
 
   //Delete Question
   @DeleteMapping("/delete-question/{id}")
-  @PreAuthorize("hasRole('ADMIN')")
   public ResponseEntity<ResponAPI<QuestionResponse>> deleteQuestion(@PathVariable String id) {
     ResponAPI<QuestionResponse> responAPI = new ResponAPI<>();
     if(!questionService.deleteQuestion(id, responAPI)) {

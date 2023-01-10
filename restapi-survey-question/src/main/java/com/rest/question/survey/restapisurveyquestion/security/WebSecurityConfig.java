@@ -5,27 +5,21 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-// import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-// import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-// import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-// import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-// import org.springframework.web.client.HttpClientErrorException.Unauthorized;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import com.rest.question.survey.restapisurveyquestion.Interceptor.AdminInterceptor;
 import com.rest.question.survey.restapisurveyquestion.Interceptor.UserInterceptor;
 import com.rest.question.survey.restapisurveyquestion.security.jwt.AuthEntryPointJwt;
 import com.rest.question.survey.restapisurveyquestion.security.jwt.AuthTokenFilter;
-import com.rest.question.survey.restapisurveyquestion.security.jwt.JwtUtils;
 import com.rest.question.survey.restapisurveyquestion.security.services.UserDetailsServiceImpl;
 
 @Configuration
@@ -40,8 +34,8 @@ public class WebSecurityConfig implements WebMvcConfigurer {
   @Autowired
   private UserInterceptor userInterceptor;
 
-  // @Autowired
-  // private AdminInterceptor adminInterceptor;
+  @Autowired
+  private AdminInterceptor adminInterceptor;
 
   @Bean
   public AuthTokenFilter authenticationJwTokenFilter() {
@@ -86,7 +80,18 @@ public class WebSecurityConfig implements WebMvcConfigurer {
   public void addInterceptors(InterceptorRegistry registry) {
     WebMvcConfigurer.super.addInterceptors(registry);
     registry.addInterceptor(userInterceptor).addPathPatterns(
-        "/api/surveys/**", 
-        "/api/questions/**");
+      "/api/surveys", 
+      "/api/questions/survey/question",
+      "/api/surveys/**",
+      "/api/questions/**"
+     );
+    registry.addInterceptor(adminInterceptor).addPathPatterns( 
+      "/api/add-question",
+      "/api/edit-question/**",
+      "/api/delete-question/**",
+      "/api/add-survey",
+      "/api/edit-survey/**",
+      "/api/delete-survey/**"
+    );
   }
 }

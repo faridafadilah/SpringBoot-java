@@ -17,15 +17,13 @@ import com.rest.question.survey.restapisurveyquestion.models.User;
 import com.rest.question.survey.restapisurveyquestion.repository.UserRepository;
 import com.rest.question.survey.restapisurveyquestion.security.jwt.JwtUtils;
 
-
 @Component
-public class UserInterceptor implements HandlerInterceptor {
+public class AdminInterceptor implements HandlerInterceptor {
   @Autowired
   private UserRepository userRepository;
 
   @Autowired
   private JwtUtils jwtUtils = new JwtUtils();
-  
 
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -55,7 +53,7 @@ public class UserInterceptor implements HandlerInterceptor {
       throw (new UnauthorizedException(ErrorCode.UNAUTHORIZED));
     }
 
-    List<ListUserResponse> responses = userRepository.findByUsernameAndRole(username);
+    List<ListUserResponse> responses = userRepository.findByUserAndRoleAdmin(username);
     if(responses.isEmpty()) {
       System.out.println("UNAUTHORIZATION");
       throw (new Exception(ErrorCode.UNAUTHORIZED));
