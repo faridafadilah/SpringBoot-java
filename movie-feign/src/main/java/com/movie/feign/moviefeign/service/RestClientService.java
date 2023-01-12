@@ -1,6 +1,7 @@
 package com.movie.feign.moviefeign.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -30,12 +31,12 @@ public class RestClientService {
   //Add Watchlis
   public ResponseEntity<Watchlist> addWatchlist(Watchlist watchlist, int account_id) {
     Watchlist response = restTemplate.postForObject("https://api.themoviedb.org/3/account/"+account_id+"/watchlist?api_key=088a595cff499817542e784ddf51c732&session_id=5f1cca75cf66c33d8218d60b7a5505dfc9679e1a", watchlist, Watchlist.class);
-    return ResponseEntity.ok(response);
+    return ResponseEntity.status(HttpStatus.CREATED).build();
   }
 
   //Add Favorite
   public ResponseEntity<Favorite> addFavorite(Favorite favorite, int account_id) {
     Favorite response = restTemplate.postForObject("https://api.themoviedb.org/3/account/"+account_id+"/favorite?api_key=088a595cff499817542e784ddf51c732&session_id=5f1cca75cf66c33d8218d60b7a5505dfc9679e1a", favorite, Favorite.class);
-    return ResponseEntity.ok(response);
+    return ResponseEntity.status(HttpStatus.CREATED).build();
   }
 }
