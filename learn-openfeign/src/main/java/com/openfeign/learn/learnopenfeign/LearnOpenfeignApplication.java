@@ -11,5 +11,4 @@ public class LearnOpenfeignApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(LearnOpenfeignApplication.class, args);
 	}
-
 }

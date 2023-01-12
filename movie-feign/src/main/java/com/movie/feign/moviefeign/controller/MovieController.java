@@ -17,7 +17,7 @@ public class MovieController {
   private final MovieClient movieClient;
   //Get List Movie
   @GetMapping("/list-movie/{id}")
-  public Movie getList(@PathVariable("id") String id,@RequestParam(value = "page", required = false) Integer page) {
+  public Movie getList(@PathVariable("id") String id, @RequestParam(value = "page", required = false) Integer page) {
     Movie movie = movieClient.getListMovie(id, page);
     return movie;
   }
