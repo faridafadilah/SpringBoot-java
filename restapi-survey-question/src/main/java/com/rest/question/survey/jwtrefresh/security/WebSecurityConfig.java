@@ -17,6 +17,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.rest.question.survey.restapisurveyquestion.Interceptor.AdminInterceptor;
+import com.rest.question.survey.restapisurveyquestion.Interceptor.LogoutInterceptor;
 import com.rest.question.survey.restapisurveyquestion.Interceptor.UserInterceptor;
 import com.rest.question.survey.restapisurveyquestion.security.jwt.AuthEntryPointJwt;
 import com.rest.question.survey.restapisurveyquestion.security.jwt.AuthTokenFilter;
@@ -37,6 +38,8 @@ public class WebSecurityConfig implements WebMvcConfigurer {
   @Autowired
   private AdminInterceptor adminInterceptor;
 
+  @Autowired
+  private LogoutInterceptor logoutInterceptor;
 
   @Bean
   public AuthTokenFilter authenticationJwTokenFilter() {
@@ -93,6 +96,9 @@ public class WebSecurityConfig implements WebMvcConfigurer {
       "/api/add-survey",
       "/api/edit-survey/**",
       "/api/delete-survey/**"
+    );
+    registry.addInterceptor(logoutInterceptor).addPathPatterns(
+      "/api/auth/signout"
     );
   }
 }

@@ -40,6 +40,7 @@ public class UserInterceptor implements HandlerInterceptor {
     }
 
     String token = headerAuth.substring(7);
+    System.out.print("TOkEN"+token);
     
     String username = jwtUtils.usernameFromToken(token, signKey);
     System.out.println("username: "+ username);

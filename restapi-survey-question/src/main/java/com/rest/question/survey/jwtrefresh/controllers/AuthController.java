@@ -20,22 +20,28 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.rest.question.survey.restapisurveyquestion.base.BaseController;
+import com.rest.question.survey.restapisurveyquestion.exception.TokenRefreshException;
 import com.rest.question.survey.restapisurveyquestion.models.ERole;
+import com.rest.question.survey.restapisurveyquestion.models.RefreshToken;
 import com.rest.question.survey.restapisurveyquestion.models.Role;
 import com.rest.question.survey.restapisurveyquestion.models.User;
 import com.rest.question.survey.restapisurveyquestion.payload.request.LoginRequest;
 import com.rest.question.survey.restapisurveyquestion.payload.request.SignUpRequest;
+import com.rest.question.survey.restapisurveyquestion.payload.request.TokenRefreshRequest;
 import com.rest.question.survey.restapisurveyquestion.payload.response.JwtResponse;
 import com.rest.question.survey.restapisurveyquestion.payload.response.MessageResponse;
+import com.rest.question.survey.restapisurveyquestion.payload.response.TokenRefreshResponse;
 import com.rest.question.survey.restapisurveyquestion.repository.RoleRepository;
 import com.rest.question.survey.restapisurveyquestion.repository.UserRepository;
 import com.rest.question.survey.restapisurveyquestion.security.jwt.JwtUtils;
+import com.rest.question.survey.restapisurveyquestion.security.services.RefreshTokenService;
 import com.rest.question.survey.restapisurveyquestion.security.services.UserDetailslmpl;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/auth")
-public class AuthController {
+public class AuthController extends BaseController{
   @Autowired
   AuthenticationManager authenticationManager;
 
@@ -51,28 +57,29 @@ public class AuthController {
   @Autowired
   JwtUtils jwtUtils;
 
-  // Controller SignIn
+  @Autowired
+  RefreshTokenService refreshTokenService;
+
   @PostMapping("/signin")
   public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-    // AUthentikasi username dan password
-    Authentication authentication = authenticationManager.authenticate(
-        new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
-    // Perbarui SecurityContext menggunakan objek Authentication
+    Authentication authentication = authenticationManager
+        .authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+
     SecurityContextHolder.getContext().setAuthentication(authentication);
 
-    // Hasilkan jwt
-    String jwt = jwtUtils.generateJwtToken(authentication);
-
-    // Dapatkan UserDetails dari objek authentication
     UserDetailslmpl userDetails = (UserDetailslmpl) authentication.getPrincipal();
-    List<String> roles = userDetails.getAuthorities().stream()
-        .map(item -> item.getAuthority())
+
+    String jwt = jwtUtils.generateJwtToken(userDetails);
+    System.out.println("jwt"+jwt);
+
+    List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
         .collect(Collectors.toList());
 
-    // Respon berisi jwt, data{id,username,email,role}
-    return ResponseEntity
-        .ok(new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roles));
+    RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId(), jwt);
+
+    return ResponseEntity.ok(new JwtResponse(jwt, refreshToken.getToken(), userDetails.getId(),
+        userDetails.getUsername(), userDetails.getEmail(), roles));
   }
 
   // Controller SignUp
@@ -124,4 +131,35 @@ public class AuthController {
 
 		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
   }
+
+  @PostMapping("/refreshtoken")
+  public ResponseEntity<?> refreshtoken(@Valid @RequestBody TokenRefreshRequest request) {
+    String requestRefreshToken = request.getRefreshToken();
+    System.out.println("token sebelumnya"+requestRefreshToken);
+
+    return refreshTokenService.findByToken(requestRefreshToken)
+        .map(refreshTokenService::verifyExpiration)
+        .map(RefreshToken::getUser)
+        .map(user -> {
+          String token = jwtUtils.generateTokenFromUsername(user.getUsername());
+          System.out.println("token"+token);
+          refreshTokenService.editRefreshToken(token, requestRefreshToken);
+          return ResponseEntity.ok(new TokenRefreshResponse(token, requestRefreshToken));
+        })
+        .orElseThrow(() -> new TokenRefreshException(requestRefreshToken,
+            "Refresh token is not in database!"));
+  }
+
+  @PostMapping("/signout")
+  public ResponseEntity<?> logoutUser() {
+    //Insert Table logout true
+    //created_at dan expired_at
+    UserDetailslmpl userDetails = (UserDetailslmpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    Long userId = userDetails.getId();
+    String username = userDetails.getUsername();
+    refreshTokenService.createUserLogout(username, userId);
+    refreshTokenService.deleteByUserId(userId);
+    return ResponseEntity.ok(new MessageResponse("Log Out Successfull!"));
+  }
+
 }
