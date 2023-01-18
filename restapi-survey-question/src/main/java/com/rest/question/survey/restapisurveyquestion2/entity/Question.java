@@ -1,7 +1,8 @@
 package com.rest.question.survey.restapisurveyquestion2.entity;
 
-public interface Survey {
+public interface Question {
   String getId();
-  String getTitle();
   String getDescription();
+  String getCorrectAnswer();
+  String getSurveyId();
 }

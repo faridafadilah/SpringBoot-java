@@ -1,4 +1,4 @@
-package com.rest.question.survey.restapisurveyquestion.dto;
+package com.rest.question.survey.restapisurveyquestion2.dto;
 
 public interface QuestionDto {
   String getIdSurvey();

@@ -1,10 +1,9 @@
 package com.rest.question.survey.restapisurveyquestion2.entity;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -17,13 +16,14 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name="survey")
-public class SurveyDataMapper {
+@Table(name="question")
+public class QuestionDataMapper {
   @Id
   private String id;
-  private String title;
   private String description;
+  private String correctAnswer;
 
-  @OneToMany(mappedBy = "survey")
-  private List<QuestionDataMapper> questions;
+  @ManyToOne
+  @JoinColumn(name = "survey_id")
+  private SurveyDataMapper survey;
 }

@@ -7,8 +7,9 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CommonSurvey implements Survey {
+public class CommonQuestion implements Question {
   String id;
-  String title;
   String description;
+  String correctAnswer;
+  String surveyId;
 }

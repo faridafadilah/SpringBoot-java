@@ -120,8 +120,7 @@ public class SurveyService implements BasePageInterface<Survey, SurveySpecificat
     Boolean desc) {
     sortBy = (sortBy != null) ? sortBy : Arrays.asList("id");
     desc = (desc != null) ? desc : true;
-    String search2 = search;
-    Pageable pageableRequest = this.defaultPage(search2, page, limit, sortBy, desc);
+    Pageable pageableRequest = this.defaultPage(search, page, limit, sortBy, desc);
     Page<Survey> settingPage = surveyRepository.findAll(this.defaultSpec(search, specification), pageableRequest);
     List<Survey> surveys = settingPage.getContent();
     List<DtoResListSurvey> responseList = new ArrayList<>();
