@@ -1,6 +1,5 @@
 package com.rest.question.survey.restapisurveyquestion2.usecase;
 
-
 import java.util.Arrays;
 import java.util.List;
 
