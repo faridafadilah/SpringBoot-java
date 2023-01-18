@@ -1,11 +1,11 @@
-package com.rest.question.survey.restapisurveyquestion2.usecase;
+package com.rest.question.survey.restapisurveyquestion.usecase;
 
 import java.util.List;
 
 import org.springframework.data.domain.Page;
 
-import com.rest.question.survey.restapisurveyquestion2.dto.request.QuestionRequest;
-import com.rest.question.survey.restapisurveyquestion2.dto.response.QuestionResponse;
+import com.rest.question.survey.restapisurveyquestion.dto.request.QuestionRequest;
+import com.rest.question.survey.restapisurveyquestion.dto.response.QuestionResponse;
 
 public interface QuestionDsGateway {
 

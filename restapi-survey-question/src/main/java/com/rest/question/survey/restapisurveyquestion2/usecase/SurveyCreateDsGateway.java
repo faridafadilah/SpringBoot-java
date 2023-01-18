@@ -1,12 +1,12 @@
-package com.rest.question.survey.restapisurveyquestion2.usecase;
+package com.rest.question.survey.restapisurveyquestion.usecase;
 
 import java.util.List;
 
 import org.springframework.data.domain.Page;
 
-import com.rest.question.survey.restapisurveyquestion2.dto.request.SurveyRequest;
-import com.rest.question.survey.restapisurveyquestion2.dto.response.DtoResListSurvey;
-import com.rest.question.survey.restapisurveyquestion2.dto.response.SurveyResponse;
+import com.rest.question.survey.restapisurveyquestion.dto.request.SurveyRequest;
+import com.rest.question.survey.restapisurveyquestion.dto.response.DtoResListSurvey;
+import com.rest.question.survey.restapisurveyquestion.dto.response.SurveyResponse;
 
 public interface SurveyCreateDsGateway {
   void save(SurveyRequest requestModel);

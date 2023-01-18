@@ -1,4 +1,4 @@
-package com.rest.question.survey.restapisurveyquestion2.constant;
+package com.rest.question.survey.restapisurveyquestion.constant;
 
 public class ErrorCode {
   public static final String SUCCESS = "GEN-00";

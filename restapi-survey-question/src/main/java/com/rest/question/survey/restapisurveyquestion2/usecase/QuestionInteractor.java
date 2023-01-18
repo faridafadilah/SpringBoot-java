@@ -1,4 +1,4 @@
-package com.rest.question.survey.restapisurveyquestion2.usecase;
+package com.rest.question.survey.restapisurveyquestion.usecase;
 
 import java.util.Arrays;
 import java.util.List;
@@ -8,14 +8,14 @@ import javax.validation.ValidationException;
 
 import org.springframework.data.domain.Page;
 
-import com.rest.question.survey.restapisurveyquestion2.base.ResponAPI;
-import com.rest.question.survey.restapisurveyquestion2.constant.ErrorCode;
-import com.rest.question.survey.restapisurveyquestion2.constant.MessageAPI;
-import com.rest.question.survey.restapisurveyquestion2.dto.request.QuestionRequest;
-import com.rest.question.survey.restapisurveyquestion2.dto.response.QuestionResponse;
-import com.rest.question.survey.restapisurveyquestion2.entity.Question;
-import com.rest.question.survey.restapisurveyquestion2.entity.QuestionFactory;
-import com.rest.question.survey.restapisurveyquestion2.entity.SurveyDataMapper;
+import com.rest.question.survey.restapisurveyquestion.base.ResponAPI;
+import com.rest.question.survey.restapisurveyquestion.constant.ErrorCode;
+import com.rest.question.survey.restapisurveyquestion.constant.MessageAPI;
+import com.rest.question.survey.restapisurveyquestion.dto.request.QuestionRequest;
+import com.rest.question.survey.restapisurveyquestion.dto.response.QuestionResponse;
+import com.rest.question.survey.restapisurveyquestion.entity.Question;
+import com.rest.question.survey.restapisurveyquestion.entity.QuestionFactory;
+import com.rest.question.survey.restapisurveyquestion.entity.SurveyDataMapper;
 
 public class QuestionInteractor implements QuestionInputBoundary {
   final QuestionDsGateway questionDsGateway;

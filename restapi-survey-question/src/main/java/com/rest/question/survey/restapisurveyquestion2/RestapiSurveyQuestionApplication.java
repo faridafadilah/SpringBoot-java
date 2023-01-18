@@ -1,4 +1,4 @@
-package com.rest.question.survey.restapisurveyquestion2;
+package com.rest.question.survey.restapisurveyquestion;
 
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;

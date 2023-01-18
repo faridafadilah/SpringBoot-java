@@ -1,4 +1,4 @@
-package com.rest.question.survey.restapisurveyquestion2.constant;
+package com.rest.question.survey.restapisurveyquestion.constant;
 
 public class MessageAPI {
   public static final String SUCCESS = "Success";

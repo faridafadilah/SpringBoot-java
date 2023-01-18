@@ -1,4 +1,4 @@
-package com.rest.question.survey.restapisurveyquestion2.controllers;
+package com.rest.question.survey.restapisurveyquestion.controllers;
 
 import java.util.List;
 
@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.rest.question.survey.restapisurveyquestion2.base.ResponAPI;
-import com.rest.question.survey.restapisurveyquestion2.constant.ErrorCode;
-import com.rest.question.survey.restapisurveyquestion2.constant.MessageAPI;
-import com.rest.question.survey.restapisurveyquestion2.dto.request.QuestionRequest;
-import com.rest.question.survey.restapisurveyquestion2.dto.response.QuestionResponse;
-import com.rest.question.survey.restapisurveyquestion2.usecase.QuestionInputBoundary;
+import com.rest.question.survey.restapisurveyquestion.base.ResponAPI;
+import com.rest.question.survey.restapisurveyquestion.constant.ErrorCode;
+import com.rest.question.survey.restapisurveyquestion.constant.MessageAPI;
+import com.rest.question.survey.restapisurveyquestion.dto.request.QuestionRequest;
+import com.rest.question.survey.restapisurveyquestion.dto.response.QuestionResponse;
+import com.rest.question.survey.restapisurveyquestion.usecase.QuestionInputBoundary;
 
 import lombok.AllArgsConstructor;
 

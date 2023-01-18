@@ -1,4 +1,4 @@
-package com.rest.question.survey.restapisurveyquestion2.interface_adapter;
+package com.rest.question.survey.restapisurveyquestion.interface_adapter;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,15 +9,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
-import com.rest.question.survey.restapisurveyquestion2.base.BasePageInterface;
-import com.rest.question.survey.restapisurveyquestion2.dto.request.QuestionRequest;
-import com.rest.question.survey.restapisurveyquestion2.dto.response.QuestionResponse;
-import com.rest.question.survey.restapisurveyquestion2.entity.QuestionDataMapper;
-import com.rest.question.survey.restapisurveyquestion2.entity.SurveyDataMapper;
-import com.rest.question.survey.restapisurveyquestion2.repository.JpaQuestionRepository;
-import com.rest.question.survey.restapisurveyquestion2.repository.JpaSurveyRepository;
-import com.rest.question.survey.restapisurveyquestion2.specification.QuestionSpecification;
-import com.rest.question.survey.restapisurveyquestion2.usecase.QuestionDsGateway;
+import com.rest.question.survey.restapisurveyquestion.base.BasePageInterface;
+import com.rest.question.survey.restapisurveyquestion.dto.request.QuestionRequest;
+import com.rest.question.survey.restapisurveyquestion.dto.response.QuestionResponse;
+import com.rest.question.survey.restapisurveyquestion.entity.QuestionDataMapper;
+import com.rest.question.survey.restapisurveyquestion.entity.SurveyDataMapper;
+import com.rest.question.survey.restapisurveyquestion.repository.JpaQuestionRepository;
+import com.rest.question.survey.restapisurveyquestion.repository.JpaSurveyRepository;
+import com.rest.question.survey.restapisurveyquestion.specification.QuestionSpecification;
+import com.rest.question.survey.restapisurveyquestion.usecase.QuestionDsGateway;
 
 public class JpaQuestion implements QuestionDsGateway, BasePageInterface<QuestionDataMapper, QuestionSpecification, QuestionResponse, String> {
   final JpaQuestionRepository questionRepository;

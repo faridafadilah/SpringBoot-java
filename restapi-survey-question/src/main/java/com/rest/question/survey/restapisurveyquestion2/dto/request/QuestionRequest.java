@@ -1,4 +1,4 @@
-package com.rest.question.survey.restapisurveyquestion2.dto.request;
+package com.rest.question.survey.restapisurveyquestion.dto.request;
 
 import javax.validation.constraints.NotNull;
 

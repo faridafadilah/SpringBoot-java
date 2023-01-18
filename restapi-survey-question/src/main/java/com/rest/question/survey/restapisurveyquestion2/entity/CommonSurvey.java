@@ -1,4 +1,4 @@
-package com.rest.question.survey.restapisurveyquestion2.entity;
+package com.rest.question.survey.restapisurveyquestion.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

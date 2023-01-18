@@ -1,4 +1,4 @@
-package com.rest.question.survey.restapisurveyquestion2.base;
+package com.rest.question.survey.restapisurveyquestion.base;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

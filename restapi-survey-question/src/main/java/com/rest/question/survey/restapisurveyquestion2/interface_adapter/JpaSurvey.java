@@ -1,4 +1,4 @@
-package com.rest.question.survey.restapisurveyquestion2.interface_adapter;
+package com.rest.question.survey.restapisurveyquestion.interface_adapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,14 +9,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
-import com.rest.question.survey.restapisurveyquestion2.base.BasePageInterface;
-import com.rest.question.survey.restapisurveyquestion2.dto.request.SurveyRequest;
-import com.rest.question.survey.restapisurveyquestion2.dto.response.DtoResListSurvey;
-import com.rest.question.survey.restapisurveyquestion2.dto.response.SurveyResponse;
-import com.rest.question.survey.restapisurveyquestion2.entity.SurveyDataMapper;
-import com.rest.question.survey.restapisurveyquestion2.repository.JpaSurveyRepository;
-import com.rest.question.survey.restapisurveyquestion2.specification.SurveySpecification;
-import com.rest.question.survey.restapisurveyquestion2.usecase.SurveyCreateDsGateway;
+import com.rest.question.survey.restapisurveyquestion.base.BasePageInterface;
+import com.rest.question.survey.restapisurveyquestion.dto.request.SurveyRequest;
+import com.rest.question.survey.restapisurveyquestion.dto.response.DtoResListSurvey;
+import com.rest.question.survey.restapisurveyquestion.dto.response.SurveyResponse;
+import com.rest.question.survey.restapisurveyquestion.entity.SurveyDataMapper;
+import com.rest.question.survey.restapisurveyquestion.repository.JpaSurveyRepository;
+import com.rest.question.survey.restapisurveyquestion.specification.SurveySpecification;
+import com.rest.question.survey.restapisurveyquestion.usecase.SurveyCreateDsGateway;
 
 public class JpaSurvey implements SurveyCreateDsGateway, BasePageInterface<SurveyDataMapper, SurveySpecification, SurveyResponse, String>{
   final JpaSurveyRepository surveyRepository;

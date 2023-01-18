@@ -1,10 +1,10 @@
-package com.rest.question.survey.restapisurveyquestion2.dto.response;
+package com.rest.question.survey.restapisurveyquestion.dto.response;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.rest.question.survey.restapisurveyquestion2.entity.QuestionDataMapper;
-import com.rest.question.survey.restapisurveyquestion2.entity.SurveyDataMapper;
+import com.rest.question.survey.restapisurveyquestion.entity.QuestionDataMapper;
+import com.rest.question.survey.restapisurveyquestion.entity.SurveyDataMapper;
 
 import lombok.Getter;
 import lombok.Setter;
