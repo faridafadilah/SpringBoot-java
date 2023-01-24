@@ -70,4 +70,17 @@ public class FileStorageServiceImpl implements FileStorageService {
       throw new RuntimeException("Could not load the files!");
     }
   }
+
+  @Override
+  public boolean delete(String filename) {
+    try {
+      Path file = root.resolve(filename);
+      if(Files.deleteIfExists(file)) {
+        return true;
+      }
+      return false;
+    } catch (IOException e) {
+      throw new RuntimeException("Error: " + e.getMessage());
+    }
+  }
 }

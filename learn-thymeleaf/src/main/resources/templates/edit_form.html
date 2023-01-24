@@ -14,16 +14,16 @@
   <div th:replace="fragments/header :: header"></div>
 
   <div class="container" style="max-width: 500px">
-    <h3 class="mb-3">Thymeleaf File Upload example</h3>
+    <h3 class="mb-3">Edit Image</h3>
   
     <form
       id="uploadForm"
       method="post"
-      th:action="@{/images/upload}"
+      th:action="@{/images/update}"
       enctype="multipart/form-data">
       <input id="input-file" type="file" name="file" accept="image/png, image/jpeg" />
       <button class="btn btn-sm btn-outline-success float-right" type="submit">
-        Upload
+        Edit
       </button>
     </form>
   
