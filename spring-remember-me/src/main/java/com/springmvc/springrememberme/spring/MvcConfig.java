@@ -17,7 +17,7 @@ import com.springmvc.springrememberme.web.interceptor.UserInterceptor;
 
 @EnableWebMvc
 @Configuration
-@ComponentScan("com.springmvc.springrememberme.web.controller")
+@ComponentScan("springmvc.springrememberme.web.controller")
 public class MvcConfig implements WebMvcConfigurer {
   public MvcConfig() {
     super();
