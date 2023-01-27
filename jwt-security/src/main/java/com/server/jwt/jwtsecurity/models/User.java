@@ -46,6 +46,10 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
   private Set<Role> roles = new HashSet<>();
 
+  private String ip;
+  private int failedLoginAttempts;
+  private boolean loginBlocked;
+
   public User() {
   }
 
@@ -95,4 +99,29 @@ public class User {
     this.roles = roles;
   }
 
+  public String getIp() {
+    return ip;
+  }
+
+  public void setIp(String ip) {
+    this.ip = ip;
+  }
+
+  public int getFailedLoginAttempts() {
+    return failedLoginAttempts;
+  }
+
+  public void setFailedLoginAttempts(int failedLoginAttempts) {
+    this.failedLoginAttempts = failedLoginAttempts;
+  }
+
+  public boolean isLoginBlocked() {
+    return loginBlocked;
+  }
+
+  public void setLoginBlocked(boolean loginBlocked) {
+    this.loginBlocked = loginBlocked;
+  }
+
+  
 }

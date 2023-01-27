@@ -123,7 +123,9 @@ public class AuthController {
 				}
 			});
 		}
-
+		user.setFailedLoginAttempts(3);
+		user.setIp(null);
+		user.setLoginBlocked(false);
 		user.setRoles(roles);
 		userRepository.save(user);
 

@@ -17,7 +17,7 @@ import javax.persistence.Table;
 import com.spring.learnbruteforcesecurity.core.security.jpa.SecureToken;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class UserEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
