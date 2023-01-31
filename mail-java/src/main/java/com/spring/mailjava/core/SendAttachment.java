@@ -45,7 +45,7 @@ public class SendAttachment {
     messageBodyPart1.setText("This is message Body");
 
     MimeBodyPart messageBodyPart2 = new MimeBodyPart();  
-    String filename = "SendAttachment.java";//change accordingly  
+    String filename = "D:/Bootcamp/mail-java/src/main/resources/templates/text.txt";//change accordingly  
     DataSource source = new FileDataSource(filename);  
     messageBodyPart2.setDataHandler(new DataHandler(source));  
     messageBodyPart2.setFileName(filename);  
