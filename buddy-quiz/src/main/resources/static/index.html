@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz</title>
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+</head>
+<body>
+    <div id="quiz"></div>
+    
+    <button onclick="startQuiz()">Start Quiz</button>
+
+    <script>
+        var stompClient = Stomp.over(new SockJS("/ws"));
+        var quizId = null;
+
+        function startQuiz() {
+            stompClient.connect({}, function(frame) {
+                stompClient.subscribe("/topic/quiz", function(response) {
+                    var quiz = JSON.parse(response.body);
+
+                    var html = "<h2>" + quiz.question + "</h2>";
+
+                    for (var i = 0; i < quiz.choices.length; i++) {
+                        html += "<input type='radio' name='answer' value='" + quiz.choices[i] + "'>" + quiz.choices[i] + "<br>";
+                    }
+
+                    html += "<button onclick='submitAnswer(" + quiz.id + ")'>Submit</button>";
+
+                    $("#quiz").html(html);
+                });
+            });
+
+            stompClient.subscribe("/user/queue/quiz", function(response) {
+                var result = JSON.parse(response.body).result;
+
+                var html = result ? "<h2>Correct!</h2>" : "<h2>Wrong!</h2>";
+
+                $("#quiz").html(html);
+            });
+
+            stompClient.send("/app/quiz/start", {}, {});
+
+            $("#quiz").show();
+            $("button").hide();
+        }
+
+        function submitAnswer(id) {
+            var answer = $("input[name='answer']:checked").val();
+
+            stompClient.send("/app/quiz/answer", {}, JSON.stringify({
+                id: id,
+                answer: answer
+            }));
+        }
+    </script>
+</body>
+</html>
